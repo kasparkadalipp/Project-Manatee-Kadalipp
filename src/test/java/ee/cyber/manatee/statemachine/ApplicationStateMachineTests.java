@@ -33,12 +33,12 @@ class ApplicationStateMachineTests {
     @Autowired
     ApplicationRepository applicationRepository;
 
-    private static final Candidate newCandidate = Candidate.builder().firstName("Mari").lastName("Maasikas").build();
-    private static final Application newApplication = Application.builder().candidate(newCandidate).build();
 
     @Test
     @Transactional
     void applicationGetsRejected() {
+        val newCandidate = Candidate.builder().firstName("Mari").lastName("Maasikas").build();
+        val newApplication = Application.builder().candidate(newCandidate).build();
         val applicationSaved = applicationService.insertApplication(newApplication);
         val initialUpdatedOn = applicationSaved.getUpdatedOn();
         assertEquals(NEW, applicationSaved.getApplicationState());
@@ -58,6 +58,8 @@ class ApplicationStateMachineTests {
     @Test
     @Transactional
     void applicationInterviewGetsScheduled() {
+        val newCandidate = Candidate.builder().firstName("Mari").lastName("Maasikas").build();
+        val newApplication = Application.builder().candidate(newCandidate).build();
         val applicationSaved = applicationService.insertApplication(newApplication);
         val initialUpdatedOn = applicationSaved.getUpdatedOn();
         assertEquals(NEW, applicationSaved.getApplicationState());
