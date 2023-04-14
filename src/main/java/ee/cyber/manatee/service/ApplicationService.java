@@ -35,9 +35,12 @@ public class ApplicationService {
         return applicationRepository.save(application);
     }
 
+    public void scheduleInterview(Integer applicationId) {
+        applicationStateMachine.scheduleInterview(applicationId);
+    }
+
     public void rejectApplication(Integer applicationId) {
         applicationStateMachine.rejectApplication(applicationId);
     }
-
 
 }

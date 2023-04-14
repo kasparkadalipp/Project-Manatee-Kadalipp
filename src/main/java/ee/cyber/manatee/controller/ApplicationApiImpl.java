@@ -15,6 +15,7 @@ import ee.cyber.manatee.api.ApplicationApi;
 import ee.cyber.manatee.dto.ApplicationDto;
 import ee.cyber.manatee.mapper.ApplicationMapper;
 import ee.cyber.manatee.service.ApplicationService;
+import ee.cyber.manatee.dto.InterviewDto;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -43,6 +44,15 @@ public class ApplicationApiImpl implements ApplicationApi {
                              .body(applicationMapper.entityToDto(application));
     }
 
+    @Override
+    public ResponseEntity<Void> scheduleInterview(Integer applicationId, InterviewDto interviewDto) {
+        try {
+            applicationService.scheduleInterview(applicationId);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        } catch (IllegalArgumentException exception) {
+            throw new ResponseStatusException(NOT_FOUND, "Invalid application id", exception);
+        }
+    }
     @Override
     public ResponseEntity<Void> rejectApplication(Integer applicationId) {
         try {
