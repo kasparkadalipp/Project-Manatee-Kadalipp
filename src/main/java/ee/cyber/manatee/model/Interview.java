@@ -2,15 +2,19 @@ package ee.cyber.manatee.model;
 
 import java.time.OffsetDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import ee.cyber.manatee.statemachine.InterviewType;
 
 @Data
 @Entity
@@ -25,4 +29,11 @@ public class Interview {
 
     @NotNull
     private OffsetDateTime scheduledDateTime;
+
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Interviewer interviewer;
+
+    @NotNull
+    private InterviewType type;
 }
