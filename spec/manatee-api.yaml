@@ -98,6 +98,8 @@ components:
           $ref: '#/components/schemas/ApplicationState'
         candidate:
           $ref: '#/components/schemas/Candidate'
+        scheduledInterview:
+          $ref: '#/components/schemas/Interview'
         updatedOn:
           type: string
           format: date-time
@@ -120,6 +122,8 @@ components:
       required:
         - scheduledDateTime
       properties:
+        id:
+          type: integer
         scheduledDateTime:
           type: string
           format: date-time

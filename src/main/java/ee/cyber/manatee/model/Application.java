@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -41,4 +42,7 @@ public class Application {
 
     @NotNull
     private OffsetDateTime updatedOn;
+
+    @OneToOne
+    private Interview scheduledInterview;
 }
