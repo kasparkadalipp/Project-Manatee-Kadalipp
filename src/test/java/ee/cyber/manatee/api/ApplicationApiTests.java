@@ -1,6 +1,8 @@
 package ee.cyber.manatee.api;
 
 
+import ee.cyber.manatee.dto.InterviewTypeDto;
+import ee.cyber.manatee.dto.InterviewerDto;
 import ee.cyber.manatee.model.Application;
 import ee.cyber.manatee.model.Candidate;
 import ee.cyber.manatee.repository.ApplicationRepository;
@@ -66,8 +68,11 @@ class ApplicationApiTests {
                 .builder().firstName("Mari").lastName("Maasikas").build();
         val draftApplication = Application
                 .builder().candidate(draftCandidate).id(applicationId).build();
-        val draftInterview = InterviewDto
-                .builder().scheduledDateTime(OffsetDateTime.now().plusDays(1)).build();
+        val draftInterview = InterviewDto.builder()
+                .scheduledDateTime(OffsetDateTime.now().plusDays(1))
+                .type(InterviewTypeDto.BEHAVIOURAL)
+                .interviewer(InterviewerDto.builder().firstName("Martin").lastName("Saar").build())
+                .build();
 
         Mockito.when(applicationRepository.findById(applicationId)).thenReturn(Optional.ofNullable(draftApplication));
         val response = applicationApi.scheduleInterview(applicationId, draftInterview);
@@ -82,8 +87,11 @@ class ApplicationApiTests {
                 .builder().firstName("Mari").lastName("Maasikas").build();
         val draftApplication = Application
                 .builder().candidate(draftCandidate).id(applicationId).build();
-        val draftInterview = InterviewDto
-                .builder().scheduledDateTime(OffsetDateTime.now().minusDays(applicationId)).build();
+        val draftInterview = InterviewDto.builder()
+                .scheduledDateTime(OffsetDateTime.now().minusDays(1))
+                .type(InterviewTypeDto.BEHAVIOURAL)
+                .interviewer(InterviewerDto.builder().firstName("Martin").lastName("Saar").build())
+                .build();
 
         Mockito.when(applicationRepository.findById(applicationId)).thenReturn(Optional.ofNullable(draftApplication));
         val response = assertThrows(ResponseStatusException.class, () -> applicationApi.scheduleInterview(applicationId, draftInterview)) ;
