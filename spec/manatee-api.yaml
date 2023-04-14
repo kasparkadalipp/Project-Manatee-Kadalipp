@@ -54,7 +54,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Application'
-  /applications/{applicationId}:
+  /applications/{applicationId}/interview:
+    patch:
+      operationId: scheduleInterview
+      tags:
+        - Application
+      summary: Schedule an interview for application with given Id.
+      description: Find the applications and performs a state transition to interview state.
+      parameters:
+        - $ref: '#/components/parameters/ApplicationId'
+      requestBody:
+        description: Scheduled date-time for an application.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Interview'
+      responses:
+        '202':
+          description: Application interview scheduling was accepted and state transition was successful.
+  /applications/{applicationId}/reject:
     patch:
       operationId: rejectApplication
       tags:
@@ -96,6 +114,15 @@ components:
           type: string
         lastName:
           type: string
+
+    Interview:
+      type: object
+      required:
+        - scheduledDateTime
+      properties:
+        scheduledDateTime:
+          type: string
+          format: date-time
 
     ApplicationState:
       type: string
