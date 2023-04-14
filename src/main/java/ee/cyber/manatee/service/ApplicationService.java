@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import ee.cyber.manatee.model.Application;
+import ee.cyber.manatee.model.Interview;
 import ee.cyber.manatee.repository.ApplicationRepository;
 import ee.cyber.manatee.statemachine.ApplicationState;
 import ee.cyber.manatee.statemachine.ApplicationStateMachine;
@@ -35,7 +36,8 @@ public class ApplicationService {
         return applicationRepository.save(application);
     }
 
-    public void scheduleInterview(Integer applicationId) {
+    public void scheduleInterview(Integer applicationId, Interview interview) {
+        applicationRepository.findById(applicationId).ifPresent(apl -> apl.setScheduledInterview(interview));
         applicationStateMachine.scheduleInterview(applicationId);
     }
 

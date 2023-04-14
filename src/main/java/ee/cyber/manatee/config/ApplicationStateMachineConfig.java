@@ -66,6 +66,12 @@ public class ApplicationStateMachineConfig
                    .withExternal()
                    .source(ApplicationState.NEW)
                    .target(ApplicationState.INTERVIEW)
+                   .event(ApplicationEvent.SCHEDULE)
+
+                   .and()
+                   .withExternal()
+                   .source(ApplicationState.INTERVIEW)
+                   .target(ApplicationState.INTERVIEW)
                    .event(ApplicationEvent.SCHEDULE);
     }
 

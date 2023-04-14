@@ -43,6 +43,6 @@ public class Application {
     @NotNull
     private OffsetDateTime updatedOn;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Interview scheduledInterview;
 }

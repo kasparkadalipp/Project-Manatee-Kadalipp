@@ -1,6 +1,7 @@
 package ee.cyber.manatee.controller;
 
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import ee.cyber.manatee.mapper.ApplicationMapper;
 import ee.cyber.manatee.service.ApplicationService;
 import ee.cyber.manatee.dto.InterviewDto;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -46,8 +48,12 @@ public class ApplicationApiImpl implements ApplicationApi {
 
     @Override
     public ResponseEntity<Void> scheduleInterview(Integer applicationId, InterviewDto interviewDto) {
+        if(interviewDto.getScheduledDateTime().isBefore(OffsetDateTime.now())){
+            log.error("Scheduled date can't be in the past {}", interviewDto.getScheduledDateTime());
+            throw new ResponseStatusException(BAD_REQUEST, "Scheduled date can't be in the past");
+        }
         try {
-            applicationService.scheduleInterview(applicationId);
+            applicationService.scheduleInterview(applicationId, applicationMapper.dtoToEntity(interviewDto));
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         } catch (IllegalArgumentException exception) {
             throw new ResponseStatusException(NOT_FOUND, "Invalid application id", exception);
