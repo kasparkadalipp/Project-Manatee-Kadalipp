@@ -67,7 +67,7 @@ class ApplicationApiTests {
         val draftApplication = Application
                 .builder().candidate(draftCandidate).id(applicationId).build();
         val draftInterview = InterviewDto
-                .builder().scheduledDateTime(OffsetDateTime.now()).build();
+                .builder().scheduledDateTime(OffsetDateTime.now().plusDays(1)).build();
 
         Mockito.when(applicationRepository.findById(applicationId)).thenReturn(Optional.ofNullable(draftApplication));
         val response = applicationApi.scheduleInterview(applicationId, draftInterview);
