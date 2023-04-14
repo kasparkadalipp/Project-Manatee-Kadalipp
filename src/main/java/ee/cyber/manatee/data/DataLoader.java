@@ -1,17 +1,18 @@
 package ee.cyber.manatee.data;
 
 
+import java.time.OffsetDateTime;
+import java.util.stream.Stream;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import ee.cyber.manatee.model.Application;
 import ee.cyber.manatee.model.Candidate;
 import ee.cyber.manatee.model.Interview;
 import ee.cyber.manatee.repository.ApplicationRepository;
 import ee.cyber.manatee.statemachine.ApplicationState;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.time.OffsetDateTime;
-import java.util.stream.Stream;
 
 
 @Slf4j
