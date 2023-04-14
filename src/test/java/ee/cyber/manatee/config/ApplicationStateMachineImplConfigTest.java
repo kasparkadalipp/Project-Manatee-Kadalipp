@@ -16,13 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest
-public class ApplicationStateMachineImplConfigTest {
+class ApplicationStateMachineImplConfigTest {
     @Autowired
     StateMachineFactory<ApplicationState, ApplicationEvent> factory;
 
 
     @Test
-    public void createNewStateMachine() {
+    void createNewStateMachine() {
         val stateMachine = factory.getStateMachine(UUID.randomUUID());
         stateMachine.start();
         assertEquals(ApplicationState.NEW, stateMachine.getState().getId());

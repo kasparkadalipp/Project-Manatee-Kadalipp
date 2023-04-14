@@ -15,14 +15,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @SpringBootTest
-public class ApplicationApiTests {
+class ApplicationApiTests {
 
     @Autowired
     private ApplicationApi applicationApi;
 
 
     @Test
-    public void submitApplicationWithValidData() {
+    void submitApplicationWithValidData() {
         val draftCandidate = CandidateDto
                 .builder().firstName("Mari").lastName("Maasikas").build();
         val draftApplication = ApplicationDto

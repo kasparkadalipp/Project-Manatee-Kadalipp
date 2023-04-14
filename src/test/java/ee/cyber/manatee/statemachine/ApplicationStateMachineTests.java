@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 @SpringBootTest
-public class ApplicationStateMachineTests {
+class ApplicationStateMachineTests {
 
     @Autowired
     ApplicationService applicationService;
@@ -34,7 +34,7 @@ public class ApplicationStateMachineTests {
 
     @Test
     @Transactional
-    public void applicationGetsRejected() {
+    void applicationGetsRejected() {
         val newCandidate = Candidate.builder().firstName("Mari").lastName("Maasikas").build();
         val newApplication = Application.builder().candidate(newCandidate).build();
 
